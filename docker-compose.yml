@@ -8,8 +8,9 @@ services:
     container_name: ticketflow_backend
     ports:
       - "8000:8000"
-    volumes:
-      - ./back_TicketFlow:/app
+    # ELIMINA ESTA LÍNEA:
+    # volumes:
+    #   - ./back_TicketFlow:/app
     networks:
       - ticketflow_network
 
