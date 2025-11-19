@@ -8,6 +8,13 @@ pipeline {
             }
         }
         
+        stage('Stop Old Containers') {
+            steps {
+                sh 'docker stop ticketflow_backend ticketflow_frontend || true'
+                sh 'docker rm ticketflow_backend ticketflow_frontend || true'
+            }
+        }
+        
         stage('Build Backend') {
             steps {
                 sh 'docker-compose build backend'
