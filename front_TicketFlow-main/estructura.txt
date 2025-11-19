@@ -1,0 +1,70 @@
+.
+├── angular.json
+├── Dockerfile
+├── estructura.txt
+├── nginx.conf
+├── package.json
+├── package-lock.json
+├── proxy.conf.json
+├── public
+│   └── favicon.ico
+├── README.md
+├── src
+│   ├── app
+│   │   ├── app.config.ts
+│   │   ├── app.css
+│   │   ├── app.html
+│   │   ├── app.routes.ts
+│   │   ├── app.spec.ts
+│   │   ├── app.ts
+│   │   ├── components
+│   │   │   ├── agent-dashboard
+│   │   │   │   ├── agent-dashboard.css
+│   │   │   │   ├── agent-dashboard.html
+│   │   │   │   ├── agent-dashboard.spec.ts
+│   │   │   │   └── agent-dashboard.ts
+│   │   │   ├── client-dashboard
+│   │   │   │   ├── client-dashboard.css
+│   │   │   │   ├── client-dashboard.html
+│   │   │   │   ├── client-dashboard.spec.ts
+│   │   │   │   └── client-dashboard.ts
+│   │   │   ├── dashboard
+│   │   │   │   ├── dashboard.component.css
+│   │   │   │   ├── dashboard.component.html
+│   │   │   │   └── dashboard.component.ts
+│   │   │   ├── login
+│   │   │   │   ├── login.component.css
+│   │   │   │   ├── login.component.html
+│   │   │   │   └── login.component.ts
+│   │   │   ├── navbar
+│   │   │   │   ├── navbar.css
+│   │   │   │   ├── navbar.html
+│   │   │   │   ├── navbar.spec.ts
+│   │   │   │   └── navbar.ts
+│   │   │   └── register
+│   │   │       ├── register.component.css
+│   │   │       ├── register.component.html
+│   │   │       └── register.component.ts
+│   │   ├── guards
+│   │   │   ├── auth.guard.ts
+│   │   │   ├── role-guard.spec.ts
+│   │   │   └── role-guard.ts
+│   │   ├── interceptors
+│   │   │   └── auth.interceptor.ts
+│   │   ├── interfaces
+│   │   │   ├── category.ts
+│   │   │   ├── health-response.ts
+│   │   │   └── ticket.ts
+│   │   └── services
+│   │       ├── api.spec.ts
+│   │       ├── api.ts
+│   │       └── auth.service.ts
+│   ├── index.html
+│   ├── main.ts
+│   └── styles.css
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+└── tsconfig.spec.json
+
+15 directories, 53 files

@@ -1,0 +1,77 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+
+  <div class="w-full max-w-sm p-8 space-y-6 bg-white rounded-lg shadow-md">
+
+    <h2 class="text-2xl font-bold text-center text-gray-800">Iniciar Sesión</h2>
+
+    @if (error) {
+      <div class="p-3 text-sm text-red-800 bg-red-100 border border-red-300 rounded-md">
+        {{ error }}
+      </div>
+    }
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+
+      <div>
+        <label for="username" class="block text-sm font-medium text-gray-700">Usuario</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="w-full p-3 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          placeholder="Ingresa tu usuario"
+          [class.border-red-500]="username?.invalid && username?.touched">
+
+        @if (username?.invalid && username?.touched) {
+          <div class="mt-1 text-sm text-red-600">
+            @if (username?.errors?.['required']) {
+              <span>El usuario es requerido</span>
+            }
+            @if (username?.errors?.['minlength']) {
+              <span>El usuario debe tener al menos 3 caracteres</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="w-full p-3 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+          placeholder="Ingresa tu contraseña"
+          [class.border-red-500]="password?.invalid && password?.touched">
+
+        @if (password?.invalid && password?.touched) {
+          <div class="mt-1 text-sm text-red-600">
+            @if (password?.errors?.['required']) {
+              <span>La contraseña es requerida</span>
+            }
+            @if (password?.errors?.['minlength']) {
+              <span>La contraseña debe tener al menos 6 caracteres</span>
+            }
+          </div>
+        }
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="loginForm.invalid || loading"
+        class="w-full py-3 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-60 disabled:cursor-not-allowed">
+
+        @if (loading) {
+          <span>Iniciando sesión...</span>
+        } @else {
+          <span>Iniciar Sesión</span>
+        }
+      </button>
+    </form>
+
+    <div class="mt-6 text-sm text-center text-gray-600">
+      <p>¿No tienes cuenta? <a routerLink="/register" class="font-medium text-indigo-600 hover:underline">Regístrate aquí</a></p>
+    </div>
+
+  </div>
+</div>
