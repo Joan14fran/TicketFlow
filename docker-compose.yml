@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./back_TicketFlow
+      dockerfile: Dockerfile
+    container_name: ticketflow_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./back_TicketFlow:/app
+    networks:
+      - ticketflow_network
+
+  frontend:
+    build:
+      context: ./front_TicketFlow
+      dockerfile: Dockerfile
+    container_name: ticketflow_frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - ticketflow_network
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root
+    ports:
+      - "8081:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ticketflow_network
+
+networks:
+  ticketflow_network:
+    driver: bridge
+
+volumes:
+  jenkins_home:
