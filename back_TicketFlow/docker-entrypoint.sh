@@ -1,8 +1,11 @@
-#!/bin/bash
-set -e
+#!/bin/sh
 
-echo "migraciones..."
+echo "--> Iniciando Entrypoint..."
+
+# Aplicar migraciones
+echo "--> Aplicando migraciones de Django..."
+python manage.py makemigrations
 python manage.py migrate --noinput
 
-echo "servidor Django..."
-exec python manage.py runserver 0.0.0.0:8000
+echo "--> Iniciando Servidor..."
+exec "$@"
