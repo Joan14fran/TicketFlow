@@ -16,7 +16,8 @@ pipeline {
             steps {
                 script {
                     echo '--- Construyendo y Desplegando Contenedores ---'
-                    sh 'docker-compose up -d --build'
+                    // CORRECCIÓN AQUÍ: Especificamos los servicios
+                    sh 'docker-compose up -d --build backend frontend'
                 }
             }
         }
