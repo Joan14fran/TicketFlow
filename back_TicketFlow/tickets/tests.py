@@ -23,7 +23,6 @@ class TicketFlowSystemTest(APITestCase):
         
         self.category = Category.objects.create(
             name='Soporte General',
-            description='Problemas generales'
         )
 
         self.health_url = reverse('health_check') # /api/health/
