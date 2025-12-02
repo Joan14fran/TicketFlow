@@ -5,13 +5,15 @@ from rest_framework.decorators import action
 from .models import Category, Ticket, Comment
 # Importamos los serializers que sí usamos
 from .serializers import CategorySerializer, TicketSerializer, CommentSerializer, TicketListSerializer
-from .permissions import IsAgent, IsOwnerOrAgent
+from .permissions import IsAgent, IsOwnerOrAgent, AllowAny
 
 class HealthCheckView(APIView):
     """
     Vista simple para comprobar que la API está
     funcionando y conectada.
     """
+    permission_classes = [AllowAny]
+    
     def get(self, request, *args, **kwargs):
         return Response(
             {"status": "ok", "message": "Backend TicketFlow funcionando!"},

@@ -45,7 +45,7 @@ class TicketFlowSystemTest(APITestCase):
         data = {
             'title': 'Error en la impresora',
             'description': 'No imprime a color',
-            'priority': 'media',
+            'priority': 'medium',
             'category': self.category.id
         }
         
