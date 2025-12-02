@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         COMPOSE_PROJECT_NAME = 'ticketflow'
-        CODECOV_TOKEN = '2bc00fef-5431-47df-a258-563284d9fa00' 
+        CODECOV_TOKEN = '2bc00fef-5431-47df-a258-563284d9fa00'
     }
 
     stages {
@@ -13,39 +13,41 @@ pipeline {
             }
         }
 
-        stage('Unit Tests & Coverage') {
+        stage('Build, Test & Coverage') {
             steps {
                 script {
-                    echo '--- 1. Ejecutando Pruebas Unitarias (Backend) ---'
-                    docker.image('python:3.11-slim').inside('-u root') {
-                        sh 'pip install -r back_TicketFlow/requirements.txt'
-                        dir('back_TicketFlow') {
-                            sh 'coverage run manage.py test'
-                            sh 'coverage xml'
-                        }
-                    }
-                }
-            }
-        }
-        
-        stage('Upload to Codecov') {
-            steps {
-                script {
-                    echo '--- 2. Subiendo reporte a Codecov ---'
-                    docker.image('curlimages/curl:latest').inside {
-                        sh 'curl -Os https://cli.codecov.io/latest/linux/codecov'
-                        sh 'chmod +x codecov'
-                        sh './codecov -t $CODECOV_TOKEN -f back_TicketFlow/coverage.xml'
-                    }
+                    echo '--- 1. Construyendo Imagen del Backend ---'
+                    sh 'docker-compose build backend'
+                    
+                    echo '--- 2. Ejecutando Tests y Subiendo a Codecov ---'
+                    sh """
+                        docker-compose run --rm backend sh -c "
+                            apt-get update && apt-get install -y curl &&
+                            coverage run manage.py test &&
+                            coverage xml &&
+                            curl -Os https://cli.codecov.io/latest/linux/codecov &&
+                            chmod +x codecov &&
+                            ./codecov -t ${CODECOV_TOKEN} -f coverage.xml
+                        "
+                    """
                 }
             }
         }
 
-        stage('Build & Start (Local)') {
+        stage('Deploy (Start App)') {
             steps {
                 script {
-                    echo '--- 3. Despliegue Final (Verificación) ---'
-                    sh 'docker-compose up -d --build backend frontend'
+                    echo '--- 3. Despliegue Final ---'
+                    sh 'docker-compose up -d backend frontend'
+                }
+            }
+        }
+        
+        stage('Verify') {
+            steps {
+                script {
+                    echo '--- Verificando estado ---'
+                    sh 'docker ps'
                 }
             }
         }
@@ -53,7 +55,7 @@ pipeline {
     
     post {
         always { echo 'Pipeline finalizado.' }
-        success { echo '¡Éxito! Pruebas pasadas, reporte subido y despliegue exitoso.' }
-        failure { echo 'Fallo crítico. Revisa los errores.' }
+        success { echo '¡Éxito total! Tests pasados y despliegue exitoso.' }
+        failure { echo 'Fallaron las pruebas.' }
     }
 }
