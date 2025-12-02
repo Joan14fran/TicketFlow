@@ -21,8 +21,8 @@ class TicketFlowSystemTest(APITestCase):
             role='client'
         )
         
-        self.category = Category.objects.create(
-            name='Soporte General',
+        self.category, _ = Category.objects.get_or_create(
+            name='Soporte General'
         )
 
         self.health_url = reverse('health_check') # /api/health/
