@@ -27,7 +27,7 @@ pipeline {
                             coverage xml &&
                             curl -Os https://uploader.codecov.io/latest/linux/codecov &&
                             chmod +x codecov &&
-                            ./codecov -t ${CODECOV_TOKEN} -f coverage.xml
+                            ./codecov -t ${CODECOV_TOKEN} -f coverage.xml -C ${env.GIT_COMMIT} -r Joan14fran/TicketFlow -B ${env.BRANCH_NAME}
                         "
                     """
                 }
@@ -55,7 +55,7 @@ pipeline {
     
     post {
         always { echo 'Pipeline finalizado.' }
-        success { echo '¡Éxito total! Tests pasados y despliegue exitoso.' }
-        failure { echo 'Fallaron las pruebas.' }
+        success { echo '¡Éxito total! Tests pasados y código desplegado.' }
+        failure { echo 'Fallaron las pruebas. Revisa los logs.' }
     }
 }
