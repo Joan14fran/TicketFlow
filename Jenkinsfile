@@ -25,7 +25,7 @@ pipeline {
                             apt-get update && apt-get install -y curl &&
                             coverage run manage.py test &&
                             coverage xml &&
-                            curl -Os https://cli.codecov.io/latest/linux/codecov &&
+                            curl -Os https://uploader.codecov.io/latest/linux/codecov &&
                             chmod +x codecov &&
                             ./codecov -t ${CODECOV_TOKEN} -f coverage.xml
                         "
